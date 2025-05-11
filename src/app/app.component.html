@@ -1,0 +1,53 @@
+<div class="container py-5">
+  <h2 class="mb-4">ROI Calculator</h2>
+
+  <div class="card p-4 shadow-sm mb-4">
+    <div class="mb-3">
+      <label class="form-label">Oil Drill Price</label>
+      <input type="number" class="form-control" [(ngModel)]="oilDrillPrice" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Oil Barrel Price</label>
+      <input type="number" class="form-control" [(ngModel)]="oilBarrelPrice" />
+    </div>
+  </div>
+
+  <div class="card p-4 shadow-sm mb-4">
+    <h5>Wells</h5>
+    <div *ngFor="let well of wells; let i = index" class="row align-items-end mb-3">
+      <div class="col">
+        <label class="form-label">Well Operating Cost</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="well.wellOperatingCost"
+        />
+      </div>
+      <div class="col">
+        <label class="form-label">Barrels Yield</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="well.numberOfBarrelsYield"
+        />
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-outline-danger" (click)="wells.splice(i, 1)">
+          Remove
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary" (click)="wells.push({ wellOperatingCost: 0, numberOfBarrelsYield: 0 })">
+      Add Well
+    </button>
+  </div>
+
+  <div class="d-grid">
+    <button class="btn btn-success" (click)="calculateROI()">Calculate ROI</button>
+  </div>
+
+  <div *ngIf="roi" class="mt-4 alert alert-info">
+    <strong>ROI:</strong> {{ roi | number:'1.2-2' }}
+  </div>
+</div>
